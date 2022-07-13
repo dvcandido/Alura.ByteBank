@@ -8,30 +8,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Alura.ByteBank.Dados.Contexto;
 
 namespace Alura.ByteBank.Infraestrutura.Testes
 {
-    public class ClienteRepositorioTestes
+    public class AgenciaRepositorioTestes
     {
-        private readonly IClienteRepositorio _repositorio;
+        private readonly IAgenciaRepositorio _repositorio;
 
-        public ClienteRepositorioTestes()
+        public AgenciaRepositorioTestes()
         {
             var servico = new ServiceCollection();
-            servico.AddTransient<IClienteRepositorio, ClienteRepositorio>();
+            servico.AddTransient<IAgenciaRepositorio, AgenciaRepositorio>();
 
             var provedor = servico.BuildServiceProvider();
 
-            _repositorio = provedor.GetService<IClienteRepositorio>();
+            _repositorio = provedor.GetService<IAgenciaRepositorio>();
         }
-
 
         [Fact]
         public void TestaObterTodosClientes()
         {
             //Arrange
             //Act
-            List<Cliente> lista = _repositorio.ObterTodos();
+            List<Agencia> lista = _repositorio.ObterTodos();
 
             //Assert
             Assert.NotNull(lista);
@@ -58,6 +58,17 @@ namespace Alura.ByteBank.Infraestrutura.Testes
             var cliente = _repositorio.ObterPorId(id);
             //Assert
             Assert.NotNull(cliente);
+        }
+
+        [Fact]
+        public void TestaExcecaoConsultaPorAgenciaPorId()
+        {
+            //Arrange
+            //Act
+            //Assert
+            Assert.Throws<FormatException>(
+                    () => _repositorio.ObterPorId(33)
+                );
         }
     }
 }
