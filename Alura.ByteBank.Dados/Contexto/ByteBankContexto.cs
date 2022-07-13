@@ -12,7 +12,7 @@ namespace Alura.ByteBank.Dados.Contexto
        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string stringconexao = "server=localhost;DataBase=bytebankBD;Uid=root;Pwd=root";
+            string stringconexao = "server=localhost;DataBase=bytebankBD;Uid=root;Pwd=@hab123#";
             optionsBuilder.UseMySql(stringconexao, ServerVersion.AutoDetect(stringconexao));
         }
 
