@@ -9,21 +9,27 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Alura.ByteBank.Dados.Contexto;
+using Xunit.Abstractions;
 
 namespace Alura.ByteBank.Infraestrutura.Testes
 {
     public class AgenciaRepositorioTestes
     {
         private readonly IAgenciaRepositorio _repositorio;
+        public ITestOutputHelper SaidaConsoleTeste { get; set; }
 
-        public AgenciaRepositorioTestes()
+        public AgenciaRepositorioTestes(ITestOutputHelper saidaConsoleTeste)
         {
+            SaidaConsoleTeste = saidaConsoleTeste;
+            SaidaConsoleTeste.WriteLine("Construtor executado com sucesso!");
+
             var servico = new ServiceCollection();
             servico.AddTransient<IAgenciaRepositorio, AgenciaRepositorio>();
 
             var provedor = servico.BuildServiceProvider();
 
             _repositorio = provedor.GetService<IAgenciaRepositorio>();
+
         }
 
         [Fact]
